@@ -1,5 +1,5 @@
 {
-  "name": "ali-rds",
+  "name": "@laomu/ali-rds",
   "version": "3.0.1",
   "description": "Aliyun RDS client",
   "main": "lib/client.js",

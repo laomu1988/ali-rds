@@ -183,14 +183,36 @@ let rows = yield db.select('table-name');
 ```js
 let rows = yield db.select('table-name', {
   where: {
-    type: 'javascript'
+    type: 'javascript',
+    author: ['zhangsan', 'lisi']
   },
   columns: ['author', 'title'],
   orders: [['id', 'desc']]
 });
 
 => SELECT `author`, `title` FROM `table-name`
- WHERE `type` = 'javascript' ORDER BY `id` DESC
+ WHERE `type` = 'javascript' and `author` in ('zhangsan', 'lisi') ORDER BY `id` DESC
+```
+
+- 修改新增查询支持
+- Select rows with condition (or, and, like, >=)
+
+```js
+let rows = yield db.select('table-name', {
+  where: {
+    type: 'javascript',
+    or: [
+      {author: 'zhangsan'},
+      {title: {like: 'test'}},
+      {id: {'>': 30}},
+    ]
+  },
+  columns: ['author', 'title'],
+  orders: [['id', 'desc']]
+});
+
+=> SELECT `author`, `title` FROM `table-name`
+ WHERE `type` = 'javascript' AND (`author` = 'zhangsan' or `title` like '%test%' or `id` > 30) ORDER BY `id` DESC
 ```
 
 ### Delete
@@ -361,3 +383,7 @@ let session = new db.literals.Literal('session()');
 ## License
 
 [MIT](LICENSE)
+
+## 修改内容
+* v3.0.1（2018.07.02）
+  - 查询条件支持并、或、大小比较、like等操作
