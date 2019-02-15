@@ -271,7 +271,7 @@ let rows = yield db.select('table-name', {
     type: 'javascript',
     or: [
       {author: 'zhangsan'},
-      {title: {like: 'test'}},
+      {title: {like: '%test%'}},
       {id: {'>': 30}},
     ]
   },
@@ -454,5 +454,7 @@ let session = new db.literals.Literal('session()');
 [MIT](LICENSE)
 
 ## 修改内容
+* v3.3.0（2019.02.15）
+  - like规则修改，自己指定匹配规则
 * v3.0.1（2018.07.02）
   - 查询条件支持并、或、大小比较、like等操作
